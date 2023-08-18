@@ -21,11 +21,14 @@ export default async function handler(
   }
 
   if (method === "POST") {
-    const { title, description, images, category, properties } = req.body;
+    const { title, description, header, images, category, properties } =
+      req.body;
 
     const productDoc = await Product.create({
       title,
       description,
+      header,
+      bullets: [],
       images,
       category,
       properties,
@@ -35,10 +38,11 @@ export default async function handler(
   }
 
   if (method === "PUT") {
-    const { title, description, _id, images, category, properties } = req.body;
+    const { title, description, header, _id, images, category, properties } =
+      req.body;
     await Product.updateOne(
       { _id },
-      { title, description, images, category, properties }
+      { title, description, header, images, bullets: [], category, properties }
     );
     res.json(true);
   }

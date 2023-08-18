@@ -52,6 +52,7 @@ const EditProductPage = () => {
           <ProductForm
             _id={productInfo._id}
             title={productInfo.title}
+            header={productInfo.header}
             description={productInfo.description}
             images={productInfo.images}
             category={productInfo.category}

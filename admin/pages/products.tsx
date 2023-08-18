@@ -8,10 +8,8 @@ import { useEffect, useState } from "react";
 
 export const productBaseState = {
   title: "",
-  description: {
-    en: "",
-    th: "",
-  },
+  header: "",
+  description: "",
   bullets: [],
   _id: "",
   images: [],

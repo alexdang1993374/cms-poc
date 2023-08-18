@@ -9,18 +9,15 @@ import Spinner from "./Spinner";
 const ProductForm = ({
   _id,
   title: existingTitle,
+  header: existingHeader,
   description: existingDescription,
   images: existingImages,
   category: assignedCategory,
   properties: assignedProperties,
 }: IProductForm) => {
   const [title, setTitle] = useState(existingTitle || "");
-  const [englishDescription, setEnglishDescription] = useState(
-    existingDescription?.en || ""
-  );
-  const [thaiDescription, setThaiDescription] = useState(
-    existingDescription?.th || ""
-  );
+  const [description, setDescription] = useState(existingDescription || "");
+  const [header, setHeader] = useState(existingHeader || "");
   const [images, setImages] = useState(existingImages || []);
   const [category, setCategory] = useState(assignedCategory || "");
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -38,8 +35,8 @@ const ProductForm = ({
   useEffect(() => {
     if (_id) {
       setTitle(existingTitle as string);
-      setEnglishDescription(existingDescription?.en as string);
-      setThaiDescription(existingDescription?.th as string);
+      setDescription(existingDescription as string);
+      setHeader(existingHeader as string);
       setImages(existingImages);
       setCategory(assignedCategory);
       setProductProperties(assignedProperties || {});
@@ -47,6 +44,7 @@ const ProductForm = ({
   }, [
     existingTitle,
     existingDescription,
+    existingHeader,
     existingImages,
     assignedCategory,
     assignedProperties,
@@ -62,8 +60,8 @@ const ProductForm = ({
     e.preventDefault();
     const data = {
       title,
-      description: { en: englishDescription, th: thaiDescription },
-
+      description,
+      header,
       images,
       category,
       properties: productProperties,
@@ -217,20 +215,19 @@ const ProductForm = ({
         {!images?.length && <div>No photos for this product</div>}
       </div>
 
-      <label>Description</label>
-
-      <p>en</p>
-      <textarea
-        placeholder="en description"
-        value={englishDescription}
-        onChange={(e) => setEnglishDescription(e.target.value)}
+      <label>Header</label>
+      <input
+        type="text"
+        placeholder="header"
+        value={header}
+        onChange={(e) => setHeader(e.target.value)}
       />
 
-      <p>th</p>
+      <label>Description</label>
       <textarea
-        placeholder="th description"
-        value={thaiDescription}
-        onChange={(e) => setThaiDescription(e.target.value)}
+        placeholder="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
 
       <button type="submit" className="btn-primary">
