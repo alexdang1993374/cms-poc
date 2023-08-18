@@ -53,7 +53,6 @@ const EditProductPage = () => {
             _id={productInfo._id}
             title={productInfo.title}
             description={productInfo.description}
-            price={productInfo.price}
             images={productInfo.images}
             category={productInfo.category}
             properties={productInfo.properties}

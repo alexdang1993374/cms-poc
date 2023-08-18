@@ -12,31 +12,16 @@ export const productBaseState = {
     en: "",
     th: "",
   },
-  price: {
-    tier1Price: 0,
-    tier2Price: 0,
-    tier3Price: 0,
-  },
+  bullets: [],
   _id: "",
   images: [],
   category: "",
   properties: {},
 };
 
-type TFilter = "price" | "title";
-
 const Products = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [activeFilter, setActiveFilter] = useState<TFilter>("price");
-
-  const sortProducts = () => {
-    if (activeFilter === "price") {
-      return products.sort((a, b) => a.price.tier1Price - b.price.tier1Price);
-    } else {
-      return products.sort((a, b) => a.title.localeCompare(b.title));
-    }
-  };
 
   useEffect(() => {
     let isMounted = true;
@@ -61,26 +46,11 @@ const Products = () => {
     };
   }, []);
 
-  const handleChangeFilter = () => {
-    if (activeFilter === "price") {
-      setActiveFilter("title");
-    } else {
-      setActiveFilter("price");
-    }
-  };
-
   return (
     <Layout>
       <Link href={"/products/new"} className="btn-primary">
         Add new product
       </Link>
-
-      <button
-        className="w-[100px] h-[30px] ml-4 bg-blue-600 text-white cursor-pointer"
-        onClick={handleChangeFilter}
-      >
-        {`Filter: ${activeFilter}`}
-      </button>
 
       {loading ? (
         <div className="h-24 flex items-center justify-center">
@@ -91,16 +61,12 @@ const Products = () => {
           <thead>
             <tr>
               <td>Product name</td>
-              <td>Price per gram (฿)</td>
-              <td>Strain</td>
-              <td>Popular</td>
-              <td>ShowProduct</td>
               <td></td>
             </tr>
           </thead>
 
           <tbody>
-            {sortProducts().map((product) => (
+            {products.map((product) => (
               <tr key={product._id} className=" border-b border-gray-500">
                 <td
                   onClick={() => router.push("/products/edit/" + product._id)}
@@ -108,16 +74,6 @@ const Products = () => {
                 >
                   {product.title}
                 </td>
-
-                <td>
-                  {product.price.tier1Price}-{product.price.tier3Price}
-                </td>
-
-                <td>{product.properties.Type}</td>
-
-                <td>{product.properties.Popular}</td>
-
-                <td>{product.properties.ShowProduct}</td>
 
                 <td>
                   <Link

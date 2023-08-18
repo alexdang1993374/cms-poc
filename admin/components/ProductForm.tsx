@@ -10,7 +10,6 @@ const ProductForm = ({
   _id,
   title: existingTitle,
   description: existingDescription,
-  price: existingPrice,
   images: existingImages,
   category: assignedCategory,
   properties: assignedProperties,
@@ -22,9 +21,6 @@ const ProductForm = ({
   const [thaiDescription, setThaiDescription] = useState(
     existingDescription?.th || ""
   );
-  const [tier1Price, setTier1Price] = useState(0);
-  const [tier2Price, setTier2Price] = useState(0);
-  const [tier3Price, setTier3Price] = useState(0);
   const [images, setImages] = useState(existingImages || []);
   const [category, setCategory] = useState(assignedCategory || "");
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -44,9 +40,6 @@ const ProductForm = ({
       setTitle(existingTitle as string);
       setEnglishDescription(existingDescription?.en as string);
       setThaiDescription(existingDescription?.th as string);
-      setTier1Price(existingPrice?.tier1Price as number);
-      setTier2Price(existingPrice?.tier2Price as number);
-      setTier3Price(existingPrice?.tier3Price as number);
       setImages(existingImages);
       setCategory(assignedCategory);
       setProductProperties(assignedProperties || {});
@@ -54,7 +47,6 @@ const ProductForm = ({
   }, [
     existingTitle,
     existingDescription,
-    existingPrice,
     existingImages,
     assignedCategory,
     assignedProperties,
@@ -71,7 +63,7 @@ const ProductForm = ({
     const data = {
       title,
       description: { en: englishDescription, th: thaiDescription },
-      price: { tier1Price, tier2Price, tier3Price },
+
       images,
       category,
       properties: productProperties,
@@ -239,31 +231,6 @@ const ProductForm = ({
         placeholder="th description"
         value={thaiDescription}
         onChange={(e) => setThaiDescription(e.target.value)}
-      />
-
-      <label>Price per gram (in ฿)</label>
-      <p>tier 1</p>
-      <input
-        type="number"
-        placeholder="price"
-        value={tier1Price}
-        onChange={(e) => setTier1Price(+e.target.value)}
-      />
-
-      <p>tier 2</p>
-      <input
-        type="number"
-        placeholder="price"
-        value={tier2Price}
-        onChange={(e) => setTier2Price(+e.target.value)}
-      />
-
-      <p>tier 3</p>
-      <input
-        type="number"
-        placeholder="price"
-        value={tier3Price}
-        onChange={(e) => setTier3Price(+e.target.value)}
       />
 
       <button type="submit" className="btn-primary">

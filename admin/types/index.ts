@@ -13,7 +13,7 @@ export interface IProduct {
   _id: string;
   title: string;
   description: ITranslation;
-  price: IPrice;
+  bullets: any;
   images: any;
   category: any;
   properties: Record<string, string>;
